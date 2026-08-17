@@ -104,6 +104,11 @@ def aplicar_estilo():
 
     h1,h2,h3 {{
         color:{TEXTO};
+        white-space:normal !important;
+        overflow-wrap:break-word !important;
+        word-wrap:break-word !important;
+        word-break:normal !important;
+        max-width:100% !important;
     }}
 
     h1 {{
@@ -127,6 +132,10 @@ def aplicar_estilo():
         letter-spacing:-0.025em;
         line-height:1.2;
         margin-bottom:0.7rem;
+        white-space:normal !important;
+        overflow-wrap:break-word !important;
+        word-wrap:break-word !important;
+        max-width:100% !important;
     }}
 
     .rio21-section-description {{
@@ -135,6 +144,9 @@ def aplicar_estilo():
         line-height:1.55;
         max-width:1000px;
         margin-bottom:1.5rem;
+        white-space:normal !important;
+        overflow-wrap:break-word !important;
+        word-wrap:break-word !important;
     }}
 
     .titulo-secao {{
@@ -145,6 +157,10 @@ def aplicar_estilo():
         line-height:1.2;
         margin-top:1.5rem;
         margin-bottom:1rem;
+        white-space:normal !important;
+        overflow-wrap:break-word !important;
+        word-wrap:break-word !important;
+        max-width:100% !important;
     }}
 
     .texto-grande {{
@@ -153,6 +169,9 @@ def aplicar_estilo():
         line-height:1.55;
         max-width:1100px;
         margin-bottom:1.2rem;
+        white-space:normal !important;
+        overflow-wrap:break-word !important;
+        word-wrap:break-word !important;
     }}
 
     /* =========================
@@ -239,6 +258,8 @@ def aplicar_estilo():
             padding-right:1rem !important;
             padding-top:1.2rem !important;
             padding-bottom:2.5rem !important;
+            width:100% !important;
+            max-width:100% !important;
         }}
 
         /* =========================
@@ -282,6 +303,8 @@ def aplicar_estilo():
             white-space:normal !important;
             overflow:visible !important;
             text-overflow:clip !important;
+            overflow-wrap:break-word !important;
+            word-wrap:break-word !important;
         }}
 
         section[data-testid="stSidebar"] div[role="radiogroup"] label span {{
@@ -302,8 +325,19 @@ def aplicar_estilo():
         }}
 
         /* =========================
-           TÍTULOS
+           TÍTULOS CELULAR
            ========================= */
+
+        h1,h2,h3 {{
+            white-space:normal !important;
+            overflow:visible !important;
+            text-overflow:clip !important;
+            overflow-wrap:break-word !important;
+            word-wrap:break-word !important;
+            word-break:normal !important;
+            max-width:100% !important;
+            width:100% !important;
+        }}
 
         h1 {{
             font-size:1.8rem !important;
@@ -326,16 +360,28 @@ def aplicar_estilo():
             line-height:1.25 !important;
             margin-top:1rem !important;
             margin-bottom:0.6rem !important;
+            white-space:normal !important;
+            overflow:visible !important;
+            text-overflow:clip !important;
+            overflow-wrap:break-word !important;
+            word-wrap:break-word !important;
+            max-width:100% !important;
         }}
 
         .texto-grande {{
             font-size:var(--tamanho-texto, 20px) !important;
             line-height:1.5 !important;
+            white-space:normal !important;
+            overflow-wrap:break-word !important;
+            word-wrap:break-word !important;
         }}
 
         .rio21-section-description {{
             font-size:1rem !important;
             line-height:1.45 !important;
+            white-space:normal !important;
+            overflow-wrap:break-word !important;
+            word-wrap:break-word !important;
         }}
 
         /* =========================
@@ -379,6 +425,7 @@ def aplicar_estilo():
 
         [data-testid="stVerticalBlockBorderWrapper"] {{
             width:100% !important;
+            max-width:100% !important;
         }}
 
         /* =========================
@@ -396,6 +443,7 @@ def aplicar_estilo():
 
         div[data-testid="stPlotlyChart"] iframe {{
             width:100% !important;
+            max-width:100% !important;
         }}
 
         .plotly {{
@@ -408,7 +456,23 @@ def aplicar_estilo():
 
         [data-testid="stMarkdownContainer"] {{
             max-width:100% !important;
+            width:100% !important;
+            overflow:visible !important;
             overflow-wrap:break-word !important;
+            word-wrap:break-word !important;
+        }}
+
+        [data-testid="stMarkdownContainer"] h1,
+        [data-testid="stMarkdownContainer"] h2,
+        [data-testid="stMarkdownContainer"] h3 {{
+            white-space:normal !important;
+            overflow:visible !important;
+            text-overflow:clip !important;
+            overflow-wrap:break-word !important;
+            word-wrap:break-word !important;
+            word-break:normal !important;
+            max-width:100% !important;
+            width:100% !important;
         }}
 
         /* =========================
@@ -447,21 +511,36 @@ def aplicar_estilo():
             font-weight:600 !important;
         }}
 
+        h1,h2,h3 {{
+            white-space:normal !important;
+            overflow:visible !important;
+            text-overflow:clip !important;
+            overflow-wrap:break-word !important;
+            word-wrap:break-word !important;
+            word-break:normal !important;
+            width:100% !important;
+            max-width:100% !important;
+        }}
+
         h1 {{
             font-size:1.6rem !important;
+            line-height:1.2 !important;
         }}
 
         h2 {{
             font-size:1.3rem !important;
+            line-height:1.25 !important;
         }}
 
         h3 {{
             font-size:1.1rem !important;
+            line-height:1.3 !important;
         }}
 
         .titulo-secao,
         .rio21-section-title {{
             font-size:1.3rem !important;
+            line-height:1.25 !important;
         }}
 
         .texto-grande {{
@@ -475,13 +554,11 @@ def aplicar_estilo():
     </style>
     """, unsafe_allow_html=True)
 
-
 def mostrar_logo_sidebar():
     caminho = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         "logo.png"
     )
-
     if os.path.exists(caminho):
         st.image(caminho, width=170)
     else:
