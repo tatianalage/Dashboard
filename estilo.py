@@ -28,34 +28,45 @@ def aplicar_estilo():
         padding-right:3rem;
     }}
 
+    /* =========================
+       SIDEBAR
+       ========================= */
+
     section[data-testid="stSidebar"] {{
         background:#FFFFFF !important;
-        border-right:1px solid #E5E7EB;
+        border-right:1px solid #E5E7EB !important;
     }}
 
     section[data-testid="stSidebar"] > div {{
+        background:#FFFFFF !important;
         padding-top:2rem;
     }}
 
+    section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {{
+        background:#FFFFFF !important;
+    }}
+
     section[data-testid="stSidebar"] div[role="radiogroup"] {{
-        gap:0.25rem;
+        gap:0.25rem !important;
     }}
 
     section[data-testid="stSidebar"] div[role="radiogroup"] label {{
+        background:#FFFFFF !important;
+        color:#000000 !important;
         border-radius:8px;
         padding:0.65rem 0.75rem;
         transition:all 0.15s ease;
-        color:#000000 !important;
+        cursor:pointer;
     }}
 
     section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {{
-        background:#EAF5FB;
+        background:#EAF5FB !important;
     }}
 
     section[data-testid="stSidebar"] div[role="radiogroup"] label p {{
-        font-size:0.92rem;
-        font-weight:500;
         color:#000000 !important;
+        font-size:0.92rem;
+        font-weight:600;
     }}
 
     section[data-testid="stSidebar"] div[role="radiogroup"] label span {{
@@ -66,9 +77,30 @@ def aplicar_estilo():
         color:#000000 !important;
     }}
 
-    section[data-testid="stSidebar"] * {{
-        color:#000000 !important;
+    section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] {{
+        background:#EAF5FB !important;
     }}
+
+    section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] p {{
+        color:#000000 !important;
+        font-weight:700;
+    }}
+
+    section[data-testid="stSidebar"] div[role="radiogroup"] input {{
+        accent-color:{AZUL} !important;
+    }}
+
+    section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {{
+        color:#000000;
+    }}
+
+    section[data-testid="stSidebar"] .stCaption {{
+        color:#687078 !important;
+    }}
+
+    /* =========================
+       TEXTOS GERAIS
+       ========================= */
 
     h1,h2,h3 {{
         color:{TEXTO};
@@ -123,6 +155,10 @@ def aplicar_estilo():
         margin-bottom:1.2rem;
     }}
 
+    /* =========================
+       MÉTRICAS
+       ========================= */
+
     [data-testid="stMetric"] {{
         background:#FFFFFF;
         border:2px solid {AZUL};
@@ -141,6 +177,10 @@ def aplicar_estilo():
         font-size:40px;
     }}
 
+    /* =========================
+       GRÁFICOS
+       ========================= */
+
     .stPlotlyChart {{
         width:100% !important;
         margin-bottom:2rem;
@@ -158,6 +198,10 @@ def aplicar_estilo():
         max-width:100% !important;
     }}
 
+    /* =========================
+       BOTÕES
+       ========================= */
+
     .stButton > button {{
         border-radius:8px;
         border:1px solid {AZUL};
@@ -170,6 +214,10 @@ def aplicar_estilo():
         background:#EAF5FB;
         color:{AZUL};
     }}
+
+    /* =========================
+       FONTE
+       ========================= */
 
     .rio21-source {{
         border-top:1px solid {BORDA};
@@ -193,7 +241,9 @@ def aplicar_estilo():
             padding-bottom:2.5rem !important;
         }}
 
-        /* Sidebar */
+        /* =========================
+           SIDEBAR CELULAR
+           ========================= */
 
         section[data-testid="stSidebar"] {{
             width:85vw !important;
@@ -202,17 +252,36 @@ def aplicar_estilo():
         }}
 
         section[data-testid="stSidebar"] > div {{
+            background:#FFFFFF !important;
             padding-top:1rem !important;
         }}
 
+        section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {{
+            background:#FFFFFF !important;
+        }}
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] {{
+            width:100% !important;
+            gap:0.35rem !important;
+        }}
+
         section[data-testid="stSidebar"] div[role="radiogroup"] label {{
-            padding:0.75rem 0.8rem !important;
+            width:100% !important;
+            min-height:46px !important;
+            padding:0.8rem 0.9rem !important;
+            background:#FFFFFF !important;
             color:#000000 !important;
+            border-radius:8px !important;
         }}
 
         section[data-testid="stSidebar"] div[role="radiogroup"] label p {{
-            font-size:0.95rem !important;
             color:#000000 !important;
+            font-size:1rem !important;
+            font-weight:600 !important;
+            line-height:1.3 !important;
+            white-space:normal !important;
+            overflow:visible !important;
+            text-overflow:clip !important;
         }}
 
         section[data-testid="stSidebar"] div[role="radiogroup"] label span {{
@@ -223,11 +292,18 @@ def aplicar_estilo():
             color:#000000 !important;
         }}
 
-        section[data-testid="stSidebar"] * {{
-            color:#000000 !important;
+        section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] {{
+            background:#EAF5FB !important;
         }}
 
-        /* Títulos */
+        section[data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] p {{
+            color:#000000 !important;
+            font-weight:700 !important;
+        }}
+
+        /* =========================
+           TÍTULOS
+           ========================= */
 
         h1 {{
             font-size:1.8rem !important;
@@ -243,8 +319,6 @@ def aplicar_estilo():
             font-size:1.15rem !important;
             line-height:1.3 !important;
         }}
-
-        /* Títulos personalizados */
 
         .titulo-secao,
         .rio21-section-title {{
@@ -264,7 +338,9 @@ def aplicar_estilo():
             line-height:1.45 !important;
         }}
 
-        /* Todas as colunas viram uma coluna */
+        /* =========================
+           COLUNAS
+           ========================= */
 
         [data-testid="stHorizontalBlock"] {{
             flex-wrap:wrap !important;
@@ -277,7 +353,9 @@ def aplicar_estilo():
             flex:1 1 100% !important;
         }}
 
-        /* Métricas */
+        /* =========================
+           MÉTRICAS
+           ========================= */
 
         [data-testid="stMetric"] {{
             padding:1rem !important;
@@ -295,13 +373,17 @@ def aplicar_estilo():
             font-size:0.85rem !important;
         }}
 
-        /* Containers */
+        /* =========================
+           CONTAINERS
+           ========================= */
 
         [data-testid="stVerticalBlockBorderWrapper"] {{
             width:100% !important;
         }}
 
-        /* Gráficos */
+        /* =========================
+           GRÁFICOS
+           ========================= */
 
         .stPlotlyChart,
         div[data-testid="stPlotlyChart"],
@@ -316,37 +398,53 @@ def aplicar_estilo():
             width:100% !important;
         }}
 
-        /* Mantém os textos dos gráficos visíveis */
-
         .plotly {{
-            overflow:visible !important;
+            overflow-x:hidden !important;
         }}
 
-        div[data-testid="stPlotlyChart"] {{
-            overflow:visible !important;
-        }}
-
-        /* Markdown */
+        /* =========================
+           MARKDOWN
+           ========================= */
 
         [data-testid="stMarkdownContainer"] {{
             max-width:100% !important;
             overflow-wrap:break-word !important;
         }}
 
-        /* Botões */
+        /* =========================
+           BOTÕES
+           ========================= */
 
         .stButton > button {{
             width:100% !important;
         }}
     }}
 
-    /* Celulares muito pequenos */
+    /* =========================
+       CELULARES MUITO PEQUENOS
+       ========================= */
 
     @media (max-width:480px) {{
 
         .block-container {{
             padding-left:0.8rem !important;
             padding-right:0.8rem !important;
+        }}
+
+        section[data-testid="stSidebar"] {{
+            width:88vw !important;
+            max-width:320px !important;
+        }}
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label {{
+            padding:0.85rem 0.9rem !important;
+            min-height:48px !important;
+        }}
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label p {{
+            font-size:1rem !important;
+            color:#000000 !important;
+            font-weight:600 !important;
         }}
 
         h1 {{
@@ -372,16 +470,6 @@ def aplicar_estilo():
 
         .rio21-section-description {{
             font-size:0.95rem !important;
-        }}
-
-        /* Gráficos em telas muito pequenas */
-
-        div[data-testid="stPlotlyChart"] {{
-            overflow:visible !important;
-        }}
-
-        .plotly {{
-            overflow:visible !important;
         }}
     }}
     </style>

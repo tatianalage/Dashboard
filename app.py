@@ -241,6 +241,10 @@ if isinstance(ponderacoes_economia_2026, dict):
 # SIDEBAR
 # ============================================================
 
+# ============================================================
+# SIDEBAR
+# ============================================================
+
 with st.sidebar:
 
     mostrar_logo_sidebar()
@@ -248,7 +252,7 @@ with st.sidebar:
     st.markdown(
         """
         <div style="
-            color:#55A6D9;
+            color:#55A6D9 !important;
             font-size:20px;
             font-weight:800;
             letter-spacing:0.10em;
@@ -258,6 +262,89 @@ with st.sidebar:
         ">
             RIO21 · PESQUISA DE OPINIÃO
         </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <style>
+        section[data-testid="stSidebar"] {
+            background:#FFFFFF !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] {
+            background:#FFFFFF !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label {
+            color:#000000 !important;
+            background:#FFFFFF !important;
+            opacity:1 !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label p {
+            color:#000000 !important;
+            font-size:16px !important;
+            font-weight:600 !important;
+            opacity:1 !important;
+            visibility:visible !important;
+            display:block !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label span {
+            color:#000000 !important;
+            opacity:1 !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+            background:#F2F2F2 !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+            background:#EAF5FB !important;
+        }
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p {
+            color:#000000 !important;
+            font-weight:700 !important;
+        }
+
+        @media (max-width:768px) {
+            section[data-testid="stSidebar"] {
+                background:#FFFFFF !important;
+            }
+
+            section[data-testid="stSidebar"] div[role="radiogroup"] label {
+                min-height:48px !important;
+                padding:0.8rem 0.9rem !important;
+                background:#FFFFFF !important;
+            }
+
+            section[data-testid="stSidebar"] div[role="radiogroup"] label p {
+                color:#000000 !important;
+                font-size:17px !important;
+                font-weight:600 !important;
+                line-height:1.3 !important;
+                white-space:normal !important;
+                overflow:visible !important;
+                visibility:visible !important;
+                opacity:1 !important;
+            }
+
+            section[data-testid="stSidebar"] div[role="radiogroup"] label span {
+                color:#000000 !important;
+            }
+
+            section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+                background:#EAF5FB !important;
+            }
+
+            section[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p {
+                color:#000000 !important;
+            }
+        }
+        </style>
         """,
         unsafe_allow_html=True
     )
@@ -277,7 +364,6 @@ with st.sidebar:
     st.divider()
 
     st.caption("Pesquisa Rio21 · 16ª edição")
-
 
 # ============================================================
 # VISÃO GERAL
