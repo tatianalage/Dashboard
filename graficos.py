@@ -14,13 +14,26 @@ FONTE_PERCENTUAL = 16
 # FUNÇÕES AUXILIARES
 # ============================================================
 
-def _altura_horizontal(n_categorias, base=110, por_categoria=42, minimo=300, maximo=650):
+def _altura_horizontal(n_categorias, base=85, por_categoria=34, minimo=260, maximo=520):
     altura = base + (n_categorias * por_categoria)
     return max(minimo, min(altura, maximo))
 
-def _altura_concordancia(n_categorias, base=130, por_categoria=45, minimo=320, maximo=650):
+def _altura_concordancia(n_categorias, base=85, por_categoria=34, minimo=280, maximo=500):
     altura = base + (n_categorias * por_categoria)
     return max(minimo, min(altura, maximo))
+
+def _quebrar_categoria(texto):
+    texto = str(texto)
+    substituicoes = {
+        'Não sei / Prefiro não responder': 'Não sei / Prefiro não<br>responder',
+        'Prefiro não responder': 'Prefiro não<br>responder',
+        'Não sei/Prefiro não responder': 'Não sei / Prefiro não<br>responder',
+        'Não sei / Prefiro não': 'Não sei / Prefiro não',
+        'Não concordo, nem discordo': 'Não concordo,<br>nem discordo',
+        'Concordo totalmente': 'Concordo<br>totalmente',
+        'Discordo totalmente': 'Discordo<br>totalmente'
+    }
+    return substituicoes.get(texto, texto)
 
 # ------------------------------------------------------------
 # SEXO
@@ -38,7 +51,10 @@ def grafico_sexo(sexo_df):
         values='percent',
         title='Sexo',
         color='sexo',
-        color_discrete_map={'Masculino': '#176FAE', 'Feminino': '#66A9D6'},
+        color_discrete_map={
+            'Masculino': '#176FAE',
+            'Feminino': '#66A9D6'
+        },
         category_orders={'sexo': ordem}
     )
 
@@ -50,12 +66,17 @@ def grafico_sexo(sexo_df):
     )
 
     fig.update_layout(
-        title=dict(text='Sexo', font=dict(size=FONTE_TITULO, color='black')),
+        title=dict(
+            text='Sexo',
+            font=dict(size=FONTE_TITULO, color='black')
+        ),
         showlegend=True,
-        legend=dict(font=dict(size=FONTE_CATEGORIA, color='black')),
+        legend=dict(
+            font=dict(size=FONTE_CATEGORIA, color='black')
+        ),
         plot_bgcolor='white',
         paper_bgcolor='white',
-        margin=dict(t=65, b=20, l=30, r=30)
+        margin=dict(t=65, b=20, l=20, r=20)
     )
 
     return fig
@@ -66,10 +87,32 @@ def grafico_sexo(sexo_df):
 
 def grafico_idade(idade_df):
     df = idade_df.copy()
-    ordem = ['16 a 24 anos', '25 a 29 anos', '30 a 39 anos', '40 a 49 anos', '50 a 59 anos', '60 anos ou mais']
-    df['idade'] = pd.Categorical(df['idade'], categories=ordem, ordered=True)
+
+    ordem = [
+        '16 a 24 anos',
+        '25 a 29 anos',
+        '30 a 39 anos',
+        '40 a 49 anos',
+        '50 a 59 anos',
+        '60 anos ou mais'
+    ]
+
+    df['idade'] = pd.Categorical(
+        df['idade'],
+        categories=ordem,
+        ordered=True
+    )
+
     df = df.sort_values('idade')
-    cores = ['#C7D6E5', '#A9C4DA', '#7FAED0', '#5F97C2', '#3F7FB3', '#1F5FA3']
+
+    cores = [
+        '#C7D6E5',
+        '#A9C4DA',
+        '#7FAED0',
+        '#5F97C2',
+        '#3F7FB3',
+        '#1F5FA3'
+    ]
 
     fig = px.bar(
         df,
@@ -91,7 +134,10 @@ def grafico_idade(idade_df):
     )
 
     fig.update_layout(
-        title=dict(text='Faixa etária', font=dict(size=FONTE_TITULO, color='black')),
+        title=dict(
+            text='Faixa etária',
+            font=dict(size=FONTE_TITULO, color='black')
+        ),
         showlegend=False,
         xaxis=dict(
             title=None,
@@ -107,8 +153,8 @@ def grafico_idade(idade_df):
         ),
         plot_bgcolor='white',
         paper_bgcolor='white',
-        height=420,
-        margin=dict(t=65, b=75, l=15, r=15)
+        height=400,
+        margin=dict(t=65, b=70, l=10, r=10)
     )
 
     return fig
@@ -119,8 +165,21 @@ def grafico_idade(idade_df):
 
 def grafico_raca(raca_df):
     df = raca_df.copy()
-    ordem = ['Branca', 'Parda', 'Preta', 'Amarela', 'Indígena']
-    df['raca'] = pd.Categorical(df['raca'], categories=ordem, ordered=True)
+
+    ordem = [
+        'Branca',
+        'Parda',
+        'Preta',
+        'Amarela',
+        'Indígena'
+    ]
+
+    df['raca'] = pd.Categorical(
+        df['raca'],
+        categories=ordem,
+        ordered=True
+    )
+
     df = df.sort_values('raca')
 
     cores = [
@@ -151,7 +210,10 @@ def grafico_raca(raca_df):
     )
 
     fig.update_layout(
-        title=dict(text='Raça/cor', font=dict(size=FONTE_TITULO, color='black')),
+        title=dict(
+            text='Raça/cor',
+            font=dict(size=FONTE_TITULO, color='black')
+        ),
         showlegend=False,
         xaxis=dict(
             title=None,
@@ -166,8 +228,8 @@ def grafico_raca(raca_df):
         ),
         plot_bgcolor='white',
         paper_bgcolor='white',
-        height=380,
-        margin=dict(t=65, b=55, l=15, r=15)
+        height=370,
+        margin=dict(t=65, b=50, l=10, r=10)
     )
 
     return fig
@@ -179,7 +241,14 @@ def grafico_raca(raca_df):
 def grafico_ocupacao(ocup_df):
     df = ocup_df.copy()
     df = df.sort_values('percent', ascending=True)
-    altura = _altura_horizontal(len(df), base=100, por_categoria=40, minimo=300, maximo=650)
+
+    altura = _altura_horizontal(
+        len(df),
+        base=85,
+        por_categoria=34,
+        minimo=280,
+        maximo=520
+    )
 
     fig = px.bar(
         df,
@@ -201,7 +270,10 @@ def grafico_ocupacao(ocup_df):
     )
 
     fig.update_layout(
-        title=dict(text='Ocupação', font=dict(size=FONTE_TITULO, color='black')),
+        title=dict(
+            text='Ocupação',
+            font=dict(size=FONTE_TITULO, color='black')
+        ),
         coloraxis_showscale=False,
         xaxis=dict(
             title=None,
@@ -217,7 +289,7 @@ def grafico_ocupacao(ocup_df):
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=altura,
-        margin=dict(t=65, l=190, r=20, b=20)
+        margin=dict(t=65, l=170, r=10, b=15)
     )
 
     return fig
@@ -253,7 +325,12 @@ def grafico_renda_sm(renda_df):
         'Não sei / Prefiro não responder'
     ]
 
-    df['renda_sm'] = pd.Categorical(df['renda_sm'], categories=ordem, ordered=True)
+    df['renda_sm'] = pd.Categorical(
+        df['renda_sm'],
+        categories=ordem,
+        ordered=True
+    )
+
     df = df.sort_values('renda_sm', ascending=False)
 
     cores_azul = [
@@ -271,10 +348,10 @@ def grafico_renda_sm(renda_df):
 
     altura = _altura_horizontal(
         len(df),
-        base=100,
-        por_categoria=40,
-        minimo=350,
-        maximo=650
+        base=85,
+        por_categoria=34,
+        minimo=300,
+        maximo=520
     )
 
     fig = px.bar(
@@ -298,7 +375,10 @@ def grafico_renda_sm(renda_df):
     )
 
     fig.update_layout(
-        title=dict(text='Renda familiar mensal', font=dict(size=FONTE_TITULO, color='black')),
+        title=dict(
+            text='Renda familiar mensal',
+            font=dict(size=FONTE_TITULO, color='black')
+        ),
         showlegend=False,
         xaxis=dict(
             title=None,
@@ -309,12 +389,16 @@ def grafico_renda_sm(renda_df):
         yaxis=dict(
             title=None,
             tickfont=dict(size=FONTE_CATEGORIA, color='black'),
-            automargin=True
+            automargin=True,
+            ticktext=[
+                _quebrar_categoria(x)
+                for x in ordem
+            ]
         ),
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=altura,
-        margin=dict(t=65, l=210, r=20, b=20)
+        margin=dict(t=65, l=175, r=10, b=15)
     )
 
     return fig
@@ -325,15 +409,23 @@ def grafico_renda_sm(renda_df):
 
 def grafico_barra_horizontal(df, titulo):
     df = df.copy()
-    variavel = [col for col in df.columns if col != 'percent'][0]
-    df = df.sort_values('percent', ascending=True)
+
+    variavel = [
+        col for col in df.columns
+        if col != 'percent'
+    ][0]
+
+    df = df.sort_values(
+        'percent',
+        ascending=True
+    )
 
     altura = _altura_horizontal(
         len(df),
-        base=100,
-        por_categoria=42,
-        minimo=320,
-        maximo=650
+        base=85,
+        por_categoria=34,
+        minimo=280,
+        maximo=520
     )
 
     cores_azul = [
@@ -350,7 +442,9 @@ def grafico_barra_horizontal(df, titulo):
     ]
 
     cores = [
-        cores_azul[min(i, len(cores_azul) - 1)]
+        cores_azul[
+            min(i, len(cores_azul) - 1)
+        ]
         for i in range(len(df))
     ]
 
@@ -367,13 +461,22 @@ def grafico_barra_horizontal(df, titulo):
         marker_color=cores,
         texttemplate='%{text:.1f}%',
         textposition='inside',
-        textfont=dict(size=FONTE_PERCENTUAL, color='white'),
+        textfont=dict(
+            size=FONTE_PERCENTUAL,
+            color='white'
+        ),
         hovertemplate='<b>%{y}</b><br>Percentual: %{x:.1f}%<extra></extra>',
         cliponaxis=False
     )
 
     fig.update_layout(
-        title=dict(text=titulo, font=dict(size=FONTE_TITULO, color='black')),
+        title=dict(
+            text=titulo,
+            font=dict(
+                size=FONTE_TITULO,
+                color='black'
+            )
+        ),
         xaxis=dict(
             title=None,
             showticklabels=False,
@@ -382,13 +485,25 @@ def grafico_barra_horizontal(df, titulo):
         ),
         yaxis=dict(
             title=None,
-            tickfont=dict(size=FONTE_CATEGORIA, color='black'),
-            automargin=True
+            tickfont=dict(
+                size=FONTE_CATEGORIA,
+                color='black'
+            ),
+            automargin=True,
+            ticktext=[
+                _quebrar_categoria(str(x))
+                for x in df[variavel]
+            ]
         ),
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=altura,
-        margin=dict(t=65, l=210, r=20, b=20)
+        margin=dict(
+            t=65,
+            l=175,
+            r=10,
+            b=15
+        )
     )
 
     return fig
@@ -397,9 +512,18 @@ def grafico_barra_horizontal(df, titulo):
 # GRÁFICO DE AVALIAÇÃO
 # ============================================================
 
-def grafico_avaliacao_interativo(ponderacoes, variavel, titulo=None):
+def grafico_avaliacao_interativo(
+    ponderacoes,
+    variavel,
+    titulo=None
+):
     df_plot = ponderacoes[variavel].copy()
-    df_plot[variavel] = df_plot[variavel].astype(str).str.strip()
+
+    df_plot[variavel] = (
+        df_plot[variavel]
+        .astype(str)
+        .str.strip()
+    )
 
     ordem = [
         'Ótimo',
@@ -410,12 +534,16 @@ def grafico_avaliacao_interativo(ponderacoes, variavel, titulo=None):
         'Não sei / Prefiro não responder'
     ]
 
-    df_plot = df_plot[df_plot[variavel].isin(ordem)].copy()
+    df_plot = df_plot[
+        df_plot[variavel].isin(ordem)
+    ].copy()
+
     df_plot[variavel] = pd.Categorical(
         df_plot[variavel],
         categories=ordem,
         ordered=True
     )
+
     df_plot = df_plot.sort_values(variavel)
 
     cores = {
@@ -430,35 +558,65 @@ def grafico_avaliacao_interativo(ponderacoes, variavel, titulo=None):
     fig = go.Figure()
 
     for _, row in df_plot.iterrows():
+
         categoria = str(row[variavel])
         percentual = float(row['percent'])
 
-        cor_texto = 'black' if categoria in ['Ótimo', 'Não sei / Prefiro não responder'] else 'white'
+        cor_texto = (
+            'black'
+            if categoria in [
+                'Ótimo',
+                'Não sei / Prefiro não responder'
+            ]
+            else 'white'
+        )
+
+        categoria_grafico = _quebrar_categoria(categoria)
 
         fig.add_trace(
             go.Bar(
                 x=[percentual],
-                y=[categoria],
+                y=[categoria_grafico],
                 orientation='h',
                 name=categoria,
-                marker_color=cores.get(categoria, '#999999'),
+                marker_color=cores.get(
+                    categoria,
+                    '#999999'
+                ),
                 text=[f'{percentual:.1f}%'],
                 textposition='inside',
                 insidetextanchor='middle',
-                textfont=dict(size=FONTE_PERCENTUAL, color=cor_texto),
-                hovertemplate='<b>%{y}</b><br>Percentual: %{x:.1f}%<extra></extra>'
+                textfont=dict(
+                    size=FONTE_PERCENTUAL,
+                    color=cor_texto
+                ),
+                hovertemplate=(
+                    '<b>%{y}</b><br>'
+                    'Percentual: %{x:.1f}%'
+                    '<extra></extra>'
+                )
             )
         )
 
     titulos_avaliacao = {
-        'avaliacao_governo_cavaliere': 'Avaliação do Governo Eduardo Cavaliere',
-        'avaliacao_educacao': 'Avaliação da Educação',
-        'avaliacao_saude': 'Avaliação da Saúde',
-        'avaliacao_transportes': 'Avaliação dos Transportes',
-        'avaliacao_preservacao_ambiental': 'Avaliação da Preservação Ambiental',
-        'avaliacao_conservacao_urbana_patrimonial': 'Avaliação da Conservação Urbana e Patrimonial',
-        'avaliacao_assistencia_social': 'Avaliação da Assistência Social',
-        'avaliacao_pessoa_cavaliere': 'Pessoa do Eduardo Cavaliere'
+        'avaliacao_governo_paes':
+            'Avaliação do Governo Eduardo Paes',
+        'avaliacao_governo_cavaliere':
+            'Avaliação do Governo Eduardo Cavaliere',
+        'avaliacao_educacao':
+            'Avaliação da Educação',
+        'avaliacao_saude':
+            'Avaliação da Saúde',
+        'avaliacao_transportes':
+            'Avaliação dos Transportes',
+        'avaliacao_preservacao_ambiental':
+            'Avaliação da Preservação Ambiental',
+        'avaliacao_conservacao_urbana_patrimonial':
+            'Avaliação da Conservação Urbana e Patrimonial',
+        'avaliacao_assistencia_social':
+            'Avaliação da Assistência Social',
+        'avaliacao_pessoa_cavaliere':
+            'Pessoa de Eduardo Cavaliere'
     }
 
     if titulo is None:
@@ -470,7 +628,11 @@ def grafico_avaliacao_interativo(ponderacoes, variavel, titulo=None):
     fig.update_layout(
         title=dict(
             text=titulo,
-            font=dict(size=FONTE_TITULO, color='black')
+            font=dict(
+                size=FONTE_TITULO,
+                color='black'
+            ),
+            automargin=True
         ),
         xaxis=dict(
             visible=False,
@@ -478,14 +640,27 @@ def grafico_avaliacao_interativo(ponderacoes, variavel, titulo=None):
         ),
         yaxis=dict(
             title='',
-            tickfont=dict(size=FONTE_CATEGORIA, color='black'),
-            categoryorder='array',
-            categoryarray=ordem,
-            automargin=True
+            tickfont=dict(
+                size=FONTE_CATEGORIA,
+                color='black'
+            ),
+            automargin=True,
+            showgrid=False
         ),
         showlegend=False,
-        height=_altura_concordancia(len(df_plot)),
-        margin=dict(l=210, r=20, t=70, b=20),
+        height=_altura_concordancia(
+            len(df_plot),
+            base=85,
+            por_categoria=34,
+            minimo=280,
+            maximo=500
+        ),
+        margin=dict(
+            l=175,
+            r=10,
+            t=80,
+            b=15
+        ),
         plot_bgcolor='white',
         paper_bgcolor='white'
     )
@@ -496,9 +671,17 @@ def grafico_avaliacao_interativo(ponderacoes, variavel, titulo=None):
 # GRÁFICO DE FATOR
 # ============================================================
 
-def grafico_fator_interativo(ponderacoes, variavel, titulo):
+def grafico_fator_interativo(
+    ponderacoes,
+    variavel,
+    titulo
+):
     df_plot = ponderacoes[variavel].copy()
-    df_plot = df_plot.sort_values('percent', ascending=True)
+
+    df_plot = df_plot.sort_values(
+        'percent',
+        ascending=True
+    )
 
     fig = go.Figure()
 
@@ -513,28 +696,47 @@ def grafico_fator_interativo(ponderacoes, variavel, titulo):
     ]
 
     cores = [
-        cores_azul[min(i, len(cores_azul) - 1)]
+        cores_azul[
+            min(i, len(cores_azul) - 1)
+        ]
         for i in range(len(df_plot))
     ]
 
     fig.add_trace(
         go.Bar(
             x=df_plot['percent'],
-            y=df_plot[variavel].astype(str),
+            y=[
+                _quebrar_categoria(x)
+                for x in df_plot[variavel].astype(str)
+            ],
             orientation='h',
             marker_color=cores,
-            text=[f'{p:.1f}%' for p in df_plot['percent']],
+            text=[
+                f'{p:.1f}%'
+                for p in df_plot['percent']
+            ],
             textposition='inside',
             insidetextanchor='middle',
-            textfont=dict(size=FONTE_PERCENTUAL, color='white'),
-            hovertemplate='<b>%{y}</b><br>Percentual: %{x:.1f}%<extra></extra>'
+            textfont=dict(
+                size=FONTE_PERCENTUAL,
+                color='white'
+            ),
+            hovertemplate=(
+                '<b>%{y}</b><br>'
+                'Percentual: %{x:.1f}%'
+                '<extra></extra>'
+            )
         )
     )
 
     fig.update_layout(
         title=dict(
             text=titulo,
-            font=dict(size=FONTE_TITULO, color='black')
+            font=dict(
+                size=FONTE_TITULO,
+                color='black'
+            ),
+            automargin=True
         ),
         xaxis=dict(
             visible=False,
@@ -542,18 +744,27 @@ def grafico_fator_interativo(ponderacoes, variavel, titulo):
         ),
         yaxis=dict(
             title='',
-            tickfont=dict(size=FONTE_CATEGORIA, color='black'),
-            automargin=True
+            tickfont=dict(
+                size=FONTE_CATEGORIA,
+                color='black'
+            ),
+            automargin=True,
+            showgrid=False
         ),
         showlegend=False,
         height=_altura_horizontal(
             len(df_plot),
-            base=100,
-            por_categoria=42,
-            minimo=320,
-            maximo=650
+            base=85,
+            por_categoria=34,
+            minimo=280,
+            maximo=500
         ),
-        margin=dict(l=210, r=20, t=70, b=20),
+        margin=dict(
+            l=175,
+            r=10,
+            t=80,
+            b=15
+        ),
         plot_bgcolor='white',
         paper_bgcolor='white'
     )
@@ -564,14 +775,26 @@ def grafico_fator_interativo(ponderacoes, variavel, titulo):
 # GRÁFICO DE ESCALA
 # ============================================================
 
-def grafico_escala_interativo(ponderacoes, variavel, titulo):
+def grafico_escala_interativo(
+    ponderacoes,
+    variavel,
+    titulo
+):
     df_plot = ponderacoes[variavel].copy()
+
     df_plot[variavel] = pd.to_numeric(
         df_plot[variavel],
         errors='coerce'
     )
-    df_plot = df_plot.dropna(subset=[variavel])
-    df_plot = df_plot.sort_values(variavel, ascending=True)
+
+    df_plot = df_plot.dropna(
+        subset=[variavel]
+    )
+
+    df_plot = df_plot.sort_values(
+        variavel,
+        ascending=True
+    )
 
     cores_azul = [
         '#EAF5FF',
@@ -590,6 +813,7 @@ def grafico_escala_interativo(ponderacoes, variavel, titulo):
     fig = go.Figure()
 
     for _, row in df_plot.iterrows():
+
         nota = int(row[variavel])
         percentual = float(row['percent'])
         cor = cores_azul[nota]
@@ -602,19 +826,33 @@ def grafico_escala_interativo(ponderacoes, variavel, titulo):
                 text=[f'{percentual:.1f}%'],
                 textposition='inside',
                 insidetextanchor='middle',
-                textfont=dict(size=FONTE_PERCENTUAL, color='white'),
-                hovertemplate=f'<b>Nota {nota}</b><br>Percentual: %{{y:.1f}}%<extra></extra>'
+                textfont=dict(
+                    size=FONTE_PERCENTUAL,
+                    color='white'
+                ),
+                hovertemplate=(
+                    f'<b>Nota {nota}</b><br>'
+                    'Percentual: %{y:.1f}%'
+                    '<extra></extra>'
+                )
             )
         )
 
     fig.update_layout(
         title=dict(
             text=titulo,
-            font=dict(size=FONTE_TITULO, color='black')
+            font=dict(
+                size=FONTE_TITULO,
+                color='black'
+            ),
+            automargin=True
         ),
         xaxis=dict(
             title=None,
-            tickfont=dict(size=FONTE_CATEGORIA, color='black'),
+            tickfont=dict(
+                size=FONTE_CATEGORIA,
+                color='black'
+            ),
             showgrid=False,
             automargin=True
         ),
@@ -623,8 +861,13 @@ def grafico_escala_interativo(ponderacoes, variavel, titulo):
             range=[0, 100]
         ),
         showlegend=False,
-        height=380,
-        margin=dict(l=15, r=15, t=70, b=45),
+        height=350,
+        margin=dict(
+            l=10,
+            r=10,
+            t=80,
+            b=45
+        ),
         plot_bgcolor='white',
         paper_bgcolor='white'
     )
@@ -635,9 +878,18 @@ def grafico_escala_interativo(ponderacoes, variavel, titulo):
 # GRÁFICO DE CONCORDÂNCIA
 # ============================================================
 
-def grafico_concordancia_interativo(ponderacoes, variavel, titulo=None):
+def grafico_concordancia_interativo(
+    ponderacoes,
+    variavel,
+    titulo=None
+):
     df_plot = ponderacoes[variavel].copy()
-    df_plot[variavel] = df_plot[variavel].astype(str).str.strip()
+
+    df_plot[variavel] = (
+        df_plot[variavel]
+        .astype(str)
+        .str.strip()
+    )
 
     ordem = [
         'Concordo totalmente',
@@ -648,12 +900,16 @@ def grafico_concordancia_interativo(ponderacoes, variavel, titulo=None):
         'Não sei / Prefiro não responder'
     ]
 
-    df_plot = df_plot[df_plot[variavel].isin(ordem)].copy()
+    df_plot = df_plot[
+        df_plot[variavel].isin(ordem)
+    ].copy()
+
     df_plot[variavel] = pd.Categorical(
         df_plot[variavel],
         categories=ordem,
         ordered=True
     )
+
     df_plot = df_plot.sort_values(variavel)
 
     cores_azul = {
@@ -666,10 +922,14 @@ def grafico_concordancia_interativo(ponderacoes, variavel, titulo=None):
     }
 
     titulos_concordancia = {
-        'concordancia_orgulho_ser_carioca': 'Tenho orgulho de ser carioca',
-        'concordancia_rio_tera_futuro_melhor': 'Acredito que o Rio terá um futuro melhor para as próximas gerações',
-        'concordancia_me_sinto_representado_prefeitura': 'Me sinto representado pela Prefeitura',
-        'concordancia_me_sinto_representado_prefeito': 'Me sinto representado pelo prefeito Eduardo Cavaliere'
+        'concordancia_orgulho_ser_carioca':
+            'Tenho orgulho de ser carioca',
+        'concordancia_rio_tera_futuro_melhor':
+            'Acredito que o Rio terá um futuro melhor para as próximas gerações',
+        'concordancia_me_sinto_representado_prefeitura':
+            'Me sinto representado pela Prefeitura',
+        'concordancia_me_sinto_representado_prefeito':
+            'Me sinto representado pelo prefeito Eduardo Cavaliere'
     }
 
     if titulo is None:
@@ -681,30 +941,54 @@ def grafico_concordancia_interativo(ponderacoes, variavel, titulo=None):
     fig = go.Figure()
 
     for _, row in df_plot.iterrows():
+
         categoria = str(row[variavel])
         percentual = float(row['percent'])
 
-        cor_texto = 'black' if categoria == 'Não sei / Prefiro não responder' else 'white'
+        cor_texto = (
+            'black'
+            if categoria ==
+            'Não sei / Prefiro não responder'
+            else 'white'
+        )
+
+        categoria_grafico = _quebrar_categoria(
+            categoria
+        )
 
         fig.add_trace(
             go.Bar(
                 x=[percentual],
-                y=[categoria],
+                y=[categoria_grafico],
                 orientation='h',
                 name=categoria,
-                marker_color=cores_azul.get(categoria, '#999999'),
+                marker_color=cores_azul.get(
+                    categoria,
+                    '#999999'
+                ),
                 text=[f'{percentual:.1f}%'],
                 textposition='inside',
                 insidetextanchor='middle',
-                textfont=dict(size=FONTE_PERCENTUAL, color=cor_texto),
-                hovertemplate='<b>%{y}</b><br>Percentual: %{x:.1f}%<extra></extra>'
+                textfont=dict(
+                    size=FONTE_PERCENTUAL,
+                    color=cor_texto
+                ),
+                hovertemplate=(
+                    '<b>%{y}</b><br>'
+                    'Percentual: %{x:.1f}%'
+                    '<extra></extra>'
+                )
             )
         )
 
     fig.update_layout(
         title=dict(
             text=titulo,
-            font=dict(size=FONTE_TITULO, color='black')
+            font=dict(
+                size=FONTE_TITULO,
+                color='black'
+            ),
+            automargin=True
         ),
         xaxis=dict(
             visible=False,
@@ -712,14 +996,27 @@ def grafico_concordancia_interativo(ponderacoes, variavel, titulo=None):
         ),
         yaxis=dict(
             title='',
-            tickfont=dict(size=FONTE_CATEGORIA, color='black'),
-            categoryorder='array',
-            categoryarray=ordem,
-            automargin=True
+            tickfont=dict(
+                size=FONTE_CATEGORIA,
+                color='black'
+            ),
+            automargin=True,
+            showgrid=False
         ),
         showlegend=False,
-        height=_altura_concordancia(len(df_plot)),
-        margin=dict(l=210, r=20, t=70, b=20),
+        height=_altura_concordancia(
+            len(df_plot),
+            base=85,
+            por_categoria=34,
+            minimo=280,
+            maximo=500
+        ),
+        margin=dict(
+            l=175,
+            r=10,
+            t=80,
+            b=15
+        ),
         plot_bgcolor='white',
         paper_bgcolor='white'
     )
@@ -730,10 +1027,23 @@ def grafico_concordancia_interativo(ponderacoes, variavel, titulo=None):
 # ECONOMIA SOLIDÁRIA — BARRAS HORIZONTAIS AZUIS
 # ============================================================
 
-def grafico_economia_solidaria_interativo(ponderacoes, variavel, titulo):
+def grafico_economia_solidaria_interativo(
+    ponderacoes,
+    variavel,
+    titulo
+):
     df_plot = ponderacoes[variavel].copy()
-    df_plot[variavel] = df_plot[variavel].astype(str).str.strip()
-    df_plot = df_plot.sort_values('percent', ascending=True)
+
+    df_plot[variavel] = (
+        df_plot[variavel]
+        .astype(str)
+        .str.strip()
+    )
+
+    df_plot = df_plot.sort_values(
+        'percent',
+        ascending=True
+    )
 
     cores_azul = [
         '#DCEEFF',
@@ -746,16 +1056,18 @@ def grafico_economia_solidaria_interativo(ponderacoes, variavel, titulo):
     ]
 
     cores = [
-        cores_azul[min(i, len(cores_azul) - 1)]
+        cores_azul[
+            min(i, len(cores_azul) - 1)
+        ]
         for i in range(len(df_plot))
     ]
 
     altura = _altura_horizontal(
         len(df_plot),
-        base=100,
-        por_categoria=42,
-        minimo=320,
-        maximo=650
+        base=85,
+        por_categoria=34,
+        minimo=280,
+        maximo=500
     )
 
     fig = go.Figure()
@@ -763,14 +1075,27 @@ def grafico_economia_solidaria_interativo(ponderacoes, variavel, titulo):
     fig.add_trace(
         go.Bar(
             x=df_plot['percent'],
-            y=df_plot[variavel],
+            y=[
+                _quebrar_categoria(x)
+                for x in df_plot[variavel]
+            ],
             orientation='h',
             marker_color=cores,
-            text=[f'{valor:.1f}%' for valor in df_plot['percent']],
+            text=[
+                f'{valor:.1f}%'
+                for valor in df_plot['percent']
+            ],
             textposition='inside',
             insidetextanchor='middle',
-            textfont=dict(size=FONTE_PERCENTUAL, color='white'),
-            hovertemplate='<b>%{y}</b><br>Percentual: %{x:.1f}%<extra></extra>',
+            textfont=dict(
+                size=FONTE_PERCENTUAL,
+                color='white'
+            ),
+            hovertemplate=(
+                '<b>%{y}</b><br>'
+                'Percentual: %{x:.1f}%'
+                '<extra></extra>'
+            ),
             cliponaxis=False
         )
     )
@@ -778,7 +1103,11 @@ def grafico_economia_solidaria_interativo(ponderacoes, variavel, titulo):
     fig.update_layout(
         title=dict(
             text=titulo,
-            font=dict(size=FONTE_TITULO, color='black')
+            font=dict(
+                size=FONTE_TITULO,
+                color='black'
+            ),
+            automargin=True
         ),
         showlegend=False,
         xaxis=dict(
@@ -788,14 +1117,22 @@ def grafico_economia_solidaria_interativo(ponderacoes, variavel, titulo):
         ),
         yaxis=dict(
             title=None,
-            tickfont=dict(size=FONTE_CATEGORIA, color='black'),
+            tickfont=dict(
+                size=FONTE_CATEGORIA,
+                color='black'
+            ),
             showgrid=False,
             automargin=True
         ),
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=altura,
-        margin=dict(t=70, b=20, l=220, r=20)
+        margin=dict(
+            t=80,
+            b=15,
+            l=175,
+            r=10
+        )
     )
 
     return fig
@@ -804,9 +1141,18 @@ def grafico_economia_solidaria_interativo(ponderacoes, variavel, titulo):
 # ECONOMIA SOLIDÁRIA — NÍVEL DE CONCORDÂNCIA
 # ============================================================
 
-def grafico_concordancia_economia_interativo(ponderacoes, variavel, titulo):
+def grafico_concordancia_economia_interativo(
+    ponderacoes,
+    variavel,
+    titulo
+):
     df_plot = ponderacoes[variavel].copy()
-    df_plot[variavel] = df_plot[variavel].astype(str).str.strip()
+
+    df_plot[variavel] = (
+        df_plot[variavel]
+        .astype(str)
+        .str.strip()
+    )
 
     ordem = [
         'Concordo totalmente',
@@ -853,16 +1199,18 @@ def grafico_concordancia_economia_interativo(ponderacoes, variavel, titulo):
     ]
 
     cores = [
-        cores_roxo[min(i, len(cores_roxo) - 1)]
+        cores_roxo[
+            min(i, len(cores_roxo) - 1)
+        ]
         for i in range(len(df_plot))
     ]
 
     altura = _altura_horizontal(
         len(df_plot),
-        base=100,
-        por_categoria=42,
-        minimo=320,
-        maximo=650
+        base=85,
+        por_categoria=34,
+        minimo=280,
+        maximo=500
     )
 
     fig = go.Figure()
@@ -870,14 +1218,27 @@ def grafico_concordancia_economia_interativo(ponderacoes, variavel, titulo):
     fig.add_trace(
         go.Bar(
             x=df_plot['percent'],
-            y=df_plot[variavel],
+            y=[
+                _quebrar_categoria(x)
+                for x in df_plot[variavel]
+            ],
             orientation='h',
             marker_color=cores,
-            text=[f'{valor:.1f}%' for valor in df_plot['percent']],
+            text=[
+                f'{valor:.1f}%'
+                for valor in df_plot['percent']
+            ],
             textposition='inside',
             insidetextanchor='middle',
-            textfont=dict(size=FONTE_PERCENTUAL, color='white'),
-            hovertemplate='<b>%{y}</b><br>Percentual: %{x:.1f}%<extra></extra>',
+            textfont=dict(
+                size=FONTE_PERCENTUAL,
+                color='white'
+            ),
+            hovertemplate=(
+                '<b>%{y}</b><br>'
+                'Percentual: %{x:.1f}%'
+                '<extra></extra>'
+            ),
             cliponaxis=False
         )
     )
@@ -885,7 +1246,11 @@ def grafico_concordancia_economia_interativo(ponderacoes, variavel, titulo):
     fig.update_layout(
         title=dict(
             text=titulo,
-            font=dict(size=FONTE_TITULO, color='black')
+            font=dict(
+                size=FONTE_TITULO,
+                color='black'
+            ),
+            automargin=True
         ),
         showlegend=False,
         xaxis=dict(
@@ -895,14 +1260,22 @@ def grafico_concordancia_economia_interativo(ponderacoes, variavel, titulo):
         ),
         yaxis=dict(
             title=None,
-            tickfont=dict(size=FONTE_CATEGORIA, color='black'),
+            tickfont=dict(
+                size=FONTE_CATEGORIA,
+                color='black'
+            ),
             showgrid=False,
             automargin=True
         ),
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=altura,
-        margin=dict(t=70, b=20, l=220, r=20)
+        margin=dict(
+            t=80,
+            b=15,
+            l=175,
+            r=10
+        )
     )
 
     return fig
