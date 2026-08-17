@@ -11,10 +11,6 @@ BORDA = "#DDE3E7"
 def aplicar_estilo():
     st.markdown(f"""
     <style>
-    /* ============================================================
-       CONFIGURAÇÃO GERAL
-       ============================================================ */
-
     .stApp {{
         background:#FFFFFF;
         color:{TEXTO};
@@ -32,12 +28,8 @@ def aplicar_estilo():
         padding-right:3rem;
     }}
 
-    /* ============================================================
-       SIDEBAR
-       ============================================================ */
-
     section[data-testid="stSidebar"] {{
-        background:#F7F8FA;
+        background:#FFFFFF !important;
         border-right:1px solid #E5E7EB;
     }}
 
@@ -53,6 +45,7 @@ def aplicar_estilo():
         border-radius:8px;
         padding:0.65rem 0.75rem;
         transition:all 0.15s ease;
+        color:#000000 !important;
     }}
 
     section[data-testid="stSidebar"] div[role="radiogroup"] label:hover {{
@@ -62,11 +55,20 @@ def aplicar_estilo():
     section[data-testid="stSidebar"] div[role="radiogroup"] label p {{
         font-size:0.92rem;
         font-weight:500;
+        color:#000000 !important;
     }}
 
-    /* ============================================================
-       TÍTULOS PADRÃO DO STREAMLIT
-       ============================================================ */
+    section[data-testid="stSidebar"] div[role="radiogroup"] label span {{
+        color:#000000 !important;
+    }}
+
+    section[data-testid="stSidebar"] div[role="radiogroup"] label div {{
+        color:#000000 !important;
+    }}
+
+    section[data-testid="stSidebar"] * {{
+        color:#000000 !important;
+    }}
 
     h1,h2,h3 {{
         color:{TEXTO};
@@ -86,36 +88,6 @@ def aplicar_estilo():
         font-weight:650;
     }}
 
-    /* ============================================================
-       TÍTULO DAS SEÇÕES
-       ============================================================ */
-
-    .titulo-secao {{
-        color:{AZUL};
-        font-size:30px;
-        font-weight:800;
-        letter-spacing:0.10em;
-        text-transform:uppercase;
-        line-height:1.25;
-        margin-top:1rem;
-        margin-bottom:0.8rem;
-    }}
-
-    /* ============================================================
-       TEXTO GRANDE
-       ============================================================ */
-
-    .texto-grande {{
-        font-size:var(--tamanho-texto);
-        line-height:1.5;
-        color:{TEXTO};
-        margin-bottom:0.8rem;
-    }}
-
-    /* ============================================================
-       TÍTULO E DESCRIÇÃO DE SEÇÕES
-       ============================================================ */
-
     .rio21-section-title {{
         color:{TEXTO};
         font-size:32px;
@@ -133,9 +105,23 @@ def aplicar_estilo():
         margin-bottom:1.5rem;
     }}
 
-    /* ============================================================
-       MÉTRICAS
-       ============================================================ */
+    .titulo-secao {{
+        color:{TEXTO};
+        font-size:32px;
+        font-weight:750;
+        letter-spacing:-0.025em;
+        line-height:1.2;
+        margin-top:1.5rem;
+        margin-bottom:1rem;
+    }}
+
+    .texto-grande {{
+        color:{CINZA_TEXTO};
+        font-size:var(--tamanho-texto, 24px);
+        line-height:1.55;
+        max-width:1100px;
+        margin-bottom:1.2rem;
+    }}
 
     [data-testid="stMetric"] {{
         background:#FFFFFF;
@@ -155,10 +141,6 @@ def aplicar_estilo():
         font-size:40px;
     }}
 
-    /* ============================================================
-       GRÁFICOS
-       ============================================================ */
-
     .stPlotlyChart {{
         width:100% !important;
         margin-bottom:2rem;
@@ -176,10 +158,6 @@ def aplicar_estilo():
         max-width:100% !important;
     }}
 
-    /* ============================================================
-       BOTÕES
-       ============================================================ */
-
     .stButton > button {{
         border-radius:8px;
         border:1px solid {AZUL};
@@ -193,10 +171,6 @@ def aplicar_estilo():
         color:{AZUL};
     }}
 
-    /* ============================================================
-       FONTE
-       ============================================================ */
-
     .rio21-source {{
         border-top:1px solid {BORDA};
         margin-top:2rem;
@@ -206,82 +180,58 @@ def aplicar_estilo():
         line-height:1.5;
     }}
 
-    /* ============================================================
-       RESPONSIVIDADE — TABLET
-       ============================================================ */
-
-    @media (max-width:900px) {{
-
-        .block-container {{
-            padding-left:1.2rem;
-            padding-right:1.2rem;
-        }}
-
-        .titulo-secao {{
-            font-size:26px;
-            letter-spacing:0.07em;
-        }}
-
-        .texto-grande {{
-            font-size:18px !important;
-            line-height:1.5;
-        }}
-
-        .rio21-section-title {{
-            font-size:28px;
-        }}
-
-        .rio21-section-description {{
-            font-size:18px;
-        }}
-
-        [data-testid="stMetricValue"] {{
-            font-size:34px;
-        }}
-
-        [data-testid="stMetricLabel"] {{
-            font-size:16px;
-        }}
-    }}
-
-    /* ============================================================
-       RESPONSIVIDADE — CELULAR
-       ============================================================ */
+    /* =========================
+       CELULAR
+       ========================= */
 
     @media (max-width:768px) {{
-
-        /* Conteúdo principal */
 
         .block-container {{
             padding-left:1rem !important;
             padding-right:1rem !important;
-            padding-top:1.3rem !important;
+            padding-top:1.2rem !important;
             padding-bottom:2.5rem !important;
         }}
 
-        /* ========================================================
-           COLUNAS
-           ======================================================== */
+        /* Sidebar */
 
-        [data-testid="stHorizontalBlock"] {{
-            flex-wrap:wrap !important;
-            gap:1rem !important;
+        section[data-testid="stSidebar"] {{
+            width:85vw !important;
+            max-width:340px !important;
+            background:#FFFFFF !important;
         }}
 
-        [data-testid="column"] {{
-            width:100% !important;
-            min-width:100% !important;
-            flex:1 1 100% !important;
+        section[data-testid="stSidebar"] > div {{
+            padding-top:1rem !important;
         }}
 
-        /* ========================================================
-           TÍTULOS
-           ======================================================== */
+        section[data-testid="stSidebar"] div[role="radiogroup"] label {{
+            padding:0.75rem 0.8rem !important;
+            color:#000000 !important;
+        }}
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label p {{
+            font-size:0.95rem !important;
+            color:#000000 !important;
+        }}
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label span {{
+            color:#000000 !important;
+        }}
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label div {{
+            color:#000000 !important;
+        }}
+
+        section[data-testid="stSidebar"] * {{
+            color:#000000 !important;
+        }}
+
+        /* Títulos */
 
         h1 {{
             font-size:1.8rem !important;
             line-height:1.2 !important;
-            letter-spacing:-0.02em;
         }}
 
         h2 {{
@@ -294,78 +244,67 @@ def aplicar_estilo():
             line-height:1.3 !important;
         }}
 
-        /* ========================================================
-           TÍTULOS DE SEÇÃO
-           ======================================================== */
+        /* Títulos personalizados */
 
-        .titulo-secao {{
-            font-size:21px !important;
-            letter-spacing:0.05em;
-            line-height:1.3;
-            margin-top:0.8rem;
-            margin-bottom:0.7rem;
+        .titulo-secao,
+        .rio21-section-title {{
+            font-size:1.45rem !important;
+            line-height:1.25 !important;
+            margin-top:1rem !important;
+            margin-bottom:0.6rem !important;
         }}
-
-        /* ========================================================
-           TEXTO GRANDE
-           ======================================================== */
 
         .texto-grande {{
-            font-size:17px !important;
-            line-height:1.5;
-            margin-bottom:0.7rem;
-        }}
-
-        /* ========================================================
-           SEÇÕES PERSONALIZADAS
-           ======================================================== */
-
-        .rio21-section-title {{
-            font-size:22px !important;
-            line-height:1.3;
+            font-size:var(--tamanho-texto, 20px) !important;
+            line-height:1.5 !important;
         }}
 
         .rio21-section-description {{
-            font-size:16px !important;
-            line-height:1.5;
+            font-size:1rem !important;
+            line-height:1.45 !important;
         }}
 
-        /* ========================================================
-           MÉTRICAS
-           ======================================================== */
+        /* Todas as colunas viram uma coluna */
+
+        [data-testid="stHorizontalBlock"] {{
+            flex-wrap:wrap !important;
+            gap:0.8rem !important;
+        }}
+
+        [data-testid="column"] {{
+            width:100% !important;
+            min-width:100% !important;
+            flex:1 1 100% !important;
+        }}
+
+        /* Métricas */
 
         [data-testid="stMetric"] {{
-            width:100% !important;
             padding:1rem !important;
         }}
 
         [data-testid="stMetricValue"] {{
-            font-size:30px !important;
+            font-size:1.8rem !important;
         }}
 
         [data-testid="stMetricLabel"] {{
-            font-size:15px !important;
+            font-size:0.95rem !important;
         }}
 
         [data-testid="stMetricDelta"] {{
-            font-size:13px !important;
+            font-size:0.85rem !important;
         }}
 
-        /* ========================================================
-           GRÁFICOS
-           ======================================================== */
+        /* Containers */
 
-        .stPlotlyChart {{
+        [data-testid="stVerticalBlockBorderWrapper"] {{
             width:100% !important;
-            max-width:100% !important;
-            margin-bottom:1rem;
         }}
 
-        div[data-testid="stPlotlyChart"] {{
-            width:100% !important;
-            max-width:100% !important;
-        }}
+        /* Gráficos */
 
+        .stPlotlyChart,
+        div[data-testid="stPlotlyChart"],
         .js-plotly-plot,
         .plot-container,
         .plotly {{
@@ -373,34 +312,76 @@ def aplicar_estilo():
             max-width:100% !important;
         }}
 
-        /* ========================================================
-           SIDEBAR
-           ======================================================== */
-
-        section[data-testid="stSidebar"] {{
-            width:85vw !important;
+        div[data-testid="stPlotlyChart"] iframe {{
+            width:100% !important;
         }}
 
-        section[data-testid="stSidebar"] > div {{
-            padding-top:1rem;
+        /* Mantém os textos dos gráficos visíveis */
+
+        .plotly {{
+            overflow:visible !important;
         }}
 
-        /* ========================================================
-           TEXTO GERAL
-           ======================================================== */
-
-        p {{
-            font-size:1rem !important;
-            line-height:1.5 !important;
+        div[data-testid="stPlotlyChart"] {{
+            overflow:visible !important;
         }}
 
-        /* ========================================================
-           FONTE
-           ======================================================== */
+        /* Markdown */
 
-        .rio21-source {{
-            font-size:13px;
-            line-height:1.5;
+        [data-testid="stMarkdownContainer"] {{
+            max-width:100% !important;
+            overflow-wrap:break-word !important;
+        }}
+
+        /* Botões */
+
+        .stButton > button {{
+            width:100% !important;
+        }}
+    }}
+
+    /* Celulares muito pequenos */
+
+    @media (max-width:480px) {{
+
+        .block-container {{
+            padding-left:0.8rem !important;
+            padding-right:0.8rem !important;
+        }}
+
+        h1 {{
+            font-size:1.6rem !important;
+        }}
+
+        h2 {{
+            font-size:1.3rem !important;
+        }}
+
+        h3 {{
+            font-size:1.1rem !important;
+        }}
+
+        .titulo-secao,
+        .rio21-section-title {{
+            font-size:1.3rem !important;
+        }}
+
+        .texto-grande {{
+            font-size:18px !important;
+        }}
+
+        .rio21-section-description {{
+            font-size:0.95rem !important;
+        }}
+
+        /* Gráficos em telas muito pequenas */
+
+        div[data-testid="stPlotlyChart"] {{
+            overflow:visible !important;
+        }}
+
+        .plotly {{
+            overflow:visible !important;
         }}
     }}
     </style>
