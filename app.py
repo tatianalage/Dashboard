@@ -67,12 +67,12 @@ def mostrar_grafico(fig, altura=None):
         return
 
     fig.update_layout(
-        margin=dict(l=30, r=40, t=35, b=80),
+        margin=dict(l=25, r=25, t=35, b=90),
         autosize=True,
         legend=dict(
             orientation="h",
-            yanchor="bottom",
-            y=-0.25,
+            yanchor="top",
+            y=-0.15,
             xanchor="center",
             x=0.5
         )
@@ -93,19 +93,10 @@ def mostrar_grafico(fig, altura=None):
         }
     )
 
-
 def titulo_secao(texto):
     st.markdown(
         f"""
-        <div style="
-            color:#55A6D9;
-            font-size:30px;
-            font-weight:800;
-            letter-spacing:0.10em;
-            text-transform:uppercase;
-            margin-top:1rem;
-            margin-bottom:0.8rem;
-        ">
+        <div class="titulo-secao">
             {texto}
         </div>
         """,
@@ -133,7 +124,7 @@ def titulo_periodo(texto):
 
 def texto_grande(texto, tamanho=24):
     st.markdown(
-        f'<div style="font-size:{tamanho}px">{texto}</div>',
+        f'<div class="texto-grande" style="--tamanho-texto:{tamanho}px">{texto}</div>',
         unsafe_allow_html=True
     )
 
