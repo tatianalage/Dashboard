@@ -462,29 +462,28 @@ elif pagina == "Gestão municipal":
         "Comparação entre a percepção dos cariocas sobre o "
         "Governo Eduardo Paes e o Governo Eduardo Cavaliere."
     )
-    titulo_secao("Avaliação dos governos")
-    st.markdown("## Governo Municipal")
+    st.markdown("## Avaliação do Governo Municipal")
     comparacao_grafico(
         "avaliacao_governo_paes",
         "avaliacao_governo_cavaliere"
     )
     st.divider()
-    st.markdown("## Saúde")
+    st.markdown("## Avaliação da Gestão Municipal da Saúde no Rio de Janeiro")
     comparacao_grafico("avaliacao_saude")
     st.divider()
-    st.markdown("## Transportes")
+    st.markdown("## Avaliação da Gestão Municipal dos Transportes no Rio de Janeiro")
     comparacao_grafico("avaliacao_transportes")
     st.divider()
-    st.markdown("## Conservação urbana e patrimonial")
+    st.markdown("## Avaliação da Gestão Municipal da Conservação urbana e patrimonial no Rio de Janeiro")
     comparacao_grafico("avaliacao_conservacao_urbana_patrimonial")
     st.divider()
-    st.markdown("## Preservação ambiental")
+    st.markdown("## Avaliação da Gestão Municipal da Preservação ambiental no Rio de Janeiro")
     comparacao_grafico("avaliacao_preservacao_ambiental")
     st.divider()
-    st.markdown("## Assistência social")
+    st.markdown("## Avaliação da Gestão Municipal Assistência social no Rio de Janeiro")
     comparacao_grafico("avaliacao_assistencia_social")
     st.divider()
-    st.markdown("## Educação")
+    st.markdown("## Avaliação da Gestão Municipal da Educação no Rio de Janeiro")
     comparacao_grafico("avaliacao_educacao")
     st.divider()
     titulo_secao("Imagem dos gestores")
@@ -496,7 +495,7 @@ elif pagina == "Gestão municipal":
             grafico_avaliacao_interativo(
                 ponderacoes_marco_2026,
                 "avaliacao_pessoa_eduardo_paes",
-                titulo=""
+                titulo="Eduardo Paes"
             )
         )
     with col2:
@@ -505,7 +504,7 @@ elif pagina == "Gestão municipal":
             grafico_avaliacao_interativo(
                 ponderacoes_julho_2026,
                 "avaliacao_pessoa_cavaliere",
-                titulo=""
+                titulo="Eduardo Cavaliere"
             )
         )
 
@@ -564,6 +563,8 @@ elif pagina == "Percepções e expectativas":
     st.markdown("<br>", unsafe_allow_html=True)
     titulo_secao("Expectativas")
     st.markdown("## Expectativa para os próximos três meses")
+
+    st.markdown("## Eduardo Cavaliere")
     col1, col2 = st.columns(2)
     with col1:
         titulo_periodo("Março de 2026")
@@ -584,6 +585,8 @@ elif pagina == "Percepções e expectativas":
             )
         )
     st.divider()
+
+    st.markdown("Governo do Estado do RJ")
     col1, col2 = st.columns(2)
     with col1:
         titulo_periodo("Março de 2026")
@@ -604,6 +607,8 @@ elif pagina == "Percepções e expectativas":
             )
         )
     st.divider()
+
+    st.markdown("## Lula")
     col1, col2 = st.columns(2)
     with col1:
         titulo_periodo("Março de 2026")
@@ -626,6 +631,8 @@ elif pagina == "Percepções e expectativas":
     st.markdown("<br>", unsafe_allow_html=True)
     titulo_secao("Avaliação dos governos")
     st.markdown("## Avaliação dos últimos três meses")
+
+    st.markdown("## Governo do Estado do RJ")
     col1, col2 = st.columns(2)
     with col1:
         titulo_periodo("Março de 2026")
@@ -645,16 +652,8 @@ elif pagina == "Percepções e expectativas":
                 titulo=""
             )
         )
-    st.divider()
-    st.markdown("### Avaliação do Governador interino Ricardo Couto")
-    mostrar_grafico(
-        grafico_avaliacao_interativo(
-            ponderacoes_julho_2026,
-            "avaliacao_governador",
-            titulo=""
-        )
-    )
-    st.divider()
+ 
+    st.markdown("## Lula")
     col1, col2 = st.columns(2)
     with col1:
         titulo_periodo("Março de 2026")
@@ -674,6 +673,19 @@ elif pagina == "Percepções e expectativas":
                 titulo=""
             )
         )
+
+    st.divider()
+    
+    st.markdown("### Avaliação do Governador interino Ricardo Couto")
+    mostrar_grafico(
+            grafico_avaliacao_interativo(
+                ponderacoes_julho_2026,
+                "avaliacao_governador",
+                titulo=""
+            )
+        )
+    st.divider()
+    
 
 # ============================================================
 # ECONOMIA SOLIDÁRIA
