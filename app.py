@@ -586,7 +586,7 @@ elif pagina == "Percepções e expectativas":
         )
     st.divider()
 
-    st.markdown("Governo do Estado do RJ")
+    st.markdown("## Governo do Estado do RJ")
     col1, col2 = st.columns(2)
     with col1:
         titulo_periodo("Março de 2026")
