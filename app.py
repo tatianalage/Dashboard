@@ -733,31 +733,36 @@ elif pagina == "Economia Solidária":
     titulo_secao("Percepções")
     st.markdown("## Nível de concordância com as afirmações")
     economia = [
-        (
-            "pagar_mais_produtos",
-            "Estou disposto a pagar um pouco mais por produtos "
-            "produzidos de forma socialmente justa ou "
-            "ambientalmente sustentável"
-        ),
-        (
-            "comprar_feiras_locais",
-            "Comprar em feiras locais fortalece a economia do bairro"
-        ),
-        (
-            "moedas_sociais_fortalecer_economia",
-            "Moedas sociais podem ajudar a fortalecer a economia "
-            "das comunidades"
-        ),
-        (
-            "empreendimentos_coletivos",
-            "Empreendimentos coletivos são uma boa alternativa "
-            "para a inclusão produtiva"
-        ),
-        (
-            "bancos_comunitarios_acesso_credito",
-            "Bancos comunitários ampliam o acesso ao crédito"
-        )
-    ]
+    (
+        "pagar_mais_produtos",
+        "Estou disposto a pagar um <br>"
+        "pouco mais por produtos <br>"
+        "produzidos de forma socialmente <br>"
+        "justa ou ambientalmente sustentável"
+    ),
+    (
+        "comprar_feiras_locais",
+        "Comprar em feiras locais <br>"
+        "fortalece a economia do bairro"
+    ),
+    (
+        "moedas_sociais_fortalecer_economia",
+        "Moedas sociais podem ajudar a <br>"
+        "fortalecer a economia das <br>"
+        "comunidades"
+    ),
+    (
+        "empreendimentos_coletivos",
+        "Empreendimentos coletivos são <br>"
+        "uma boa alternativa para a <br>"
+         "inclusão produtiva"
+    ),
+    (
+        "bancos_comunitarios_acesso_credito",
+        "Bancos comunitários ampliam <br>"
+        " o acesso ao crédito"
+    )
+]
     for variavel, pergunta in economia:
         mostrar_grafico(
             grafico_concordancia_economia_interativo(
