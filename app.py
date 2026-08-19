@@ -856,11 +856,10 @@ elif pagina == "Perfil da amostra":
     )
 
     mostrar_grafico(
-        grafico_ocupacao(
-            ponderacoes_julho_2026["ocupacao"]
-        ),
-        altura=500
-    )
+    grafico_barra_horizontal(
+        ponderacoes_julho_2026["ocupacao"],
+        "Ocupação"
+    ))
 
     st.divider()
 

@@ -174,17 +174,30 @@ def grafico_raca(raca_df):
 def grafico_ocupacao(ocup_df):
     df = ocup_df.copy()
     df = df.sort_values('percent', ascending=True)
-    altura = _altura_horizontal(
-        len(df),
-        base=80,
-        por_categoria=34,
-        minimo=300,
-        maximo=520
+    def quebrar_texto(texto, limite=24):
+        palavras = str(texto).split()
+        linhas = []
+        linha = ''
+        for palavra in palavras:
+            nova_linha = f'{linha} {palavra}'.strip()
+            if len(nova_linha) <= limite:
+                linha = nova_linha
+            else:
+                if linha:
+                    linhas.append(linha)
+                linha = palavra
+        if linha:
+            linhas.append(linha)
+        return '<br>'.join(linhas)
+    df['ocupacao_grafico'] = df['ocupacao'].apply(quebrar_texto)
+    altura = max(
+        600,
+        min(800, 120 + len(df) * 75)
     )
     fig = px.bar(
         df,
         x='percent',
-        y='ocupacao',
+        y='ocupacao_grafico',
         orientation='h',
         text='percent',
         title='Ocupação',
@@ -195,8 +208,10 @@ def grafico_ocupacao(ocup_df):
         texttemplate='%{text:.1f}%',
         textposition='inside',
         textfont=dict(size=FONTE_PERCENTUAL, color='white'),
-        hovertemplate='<b>%{y}</b><br>Percentual: %{x:.1f}%<extra></extra>',
-        cliponaxis=False
+        hovertemplate='<b>%{customdata}</b><br>Percentual: %{x:.1f}%<extra></extra>',
+        customdata=df[['ocupacao']],
+        cliponaxis=False,
+        width=1.2
     )
     fig.update_layout(
         title=dict(text='Ocupação', font=dict(size=FONTE_TITULO, color='black')),
@@ -252,6 +267,22 @@ def grafico_renda_sm(renda_df):
         ordered=True
     )
     df = df.sort_values('renda_sm', ascending=False)
+    def quebrar_texto(texto, limite=22):
+        palavras = str(texto).split()
+        linhas = []
+        linha = ''
+        for palavra in palavras:
+            nova_linha = f'{linha} {palavra}'.strip()
+            if len(nova_linha) <= limite:
+                linha = nova_linha
+            else:
+                if linha:
+                    linhas.append(linha)
+                linha = palavra
+        if linha:
+            linhas.append(linha)
+        return '<br>'.join(linhas)
+    df['renda_grafico'] = df['renda_sm'].astype(str).apply(quebrar_texto)
     cores_azul = [
         '#0B4F7A',
         '#176FAE',
@@ -263,17 +294,14 @@ def grafico_renda_sm(renda_df):
         '#EAF5FF'
     ]
     mapa_cores = dict(zip(ordem, cores_azul))
-    altura = _altura_horizontal(
-        len(df),
-        base=80,
-        por_categoria=34,
-        minimo=320,
-        maximo=500
+    altura = max(
+        350,
+        min(700, 100 + len(df) * 55)
     )
     fig = px.bar(
         df,
         x='percent',
-        y='renda_sm',
+        y='renda_grafico',
         orientation='h',
         text='percent',
         title='Renda familiar mensal',
@@ -285,7 +313,8 @@ def grafico_renda_sm(renda_df):
         texttemplate='%{text:.1f}%',
         textposition='inside',
         textfont=dict(size=FONTE_PERCENTUAL, color='white'),
-        hovertemplate='<b>%{y}</b><br>Percentual: %{x:.1f}%<extra></extra>',
+        hovertemplate='<b>%{customdata}</b><br>Percentual: %{x:.1f}%<extra></extra>',
+        customdata=df[['renda_sm']],
         cliponaxis=False
     )
     fig.update_layout(
@@ -305,24 +334,36 @@ def grafico_renda_sm(renda_df):
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=altura,
-        margin=dict(t=60, l=230, r=15, b=15)
+        margin=dict(t=60, l=180, r=15, b=15)
     )
     return fig
 
 # ============================================================
 # BARRA HORIZONTAL
 # ============================================================
-
 def grafico_barra_horizontal(df, titulo):
     df = df.copy()
     variavel = [col for col in df.columns if col != 'percent'][0]
     df = df.sort_values('percent', ascending=True)
-    altura = _altura_horizontal(
-        len(df),
-        base=80,
-        por_categoria=34,
-        minimo=300,
-        maximo=520
+    def quebrar_texto(texto, limite=24):
+        palavras = str(texto).split()
+        linhas = []
+        linha = ''
+        for palavra in palavras:
+            nova_linha = f'{linha} {palavra}'.strip()
+            if len(nova_linha) <= limite:
+                linha = nova_linha
+            else:
+                if linha:
+                    linhas.append(linha)
+                linha = palavra
+        if linha:
+            linhas.append(linha)
+        return '<br>'.join(linhas)
+    df['categoria_grafico'] = df[variavel].apply(quebrar_texto)
+    altura = max(
+        350,
+        min(700, 100 + len(df) * 55)
     )
     cores_azul = [
         '#EAF5FF',
@@ -343,7 +384,7 @@ def grafico_barra_horizontal(df, titulo):
     fig = px.bar(
         df,
         x='percent',
-        y=variavel,
+        y='categoria_grafico',
         orientation='h',
         text='percent',
         title=titulo
@@ -353,7 +394,8 @@ def grafico_barra_horizontal(df, titulo):
         texttemplate='%{text:.1f}%',
         textposition='inside',
         textfont=dict(size=FONTE_PERCENTUAL, color='white'),
-        hovertemplate='<b>%{y}</b><br>Percentual: %{x:.1f}%<extra></extra>',
+        hovertemplate='<b>%{customdata}</b><br>Percentual: %{x:.1f}%<extra></extra>',
+        customdata=df[[variavel]],
         cliponaxis=False
     )
     fig.update_layout(
@@ -372,7 +414,7 @@ def grafico_barra_horizontal(df, titulo):
         plot_bgcolor='white',
         paper_bgcolor='white',
         height=altura,
-        margin=dict(t=60, l=220, r=15, b=15)
+        margin=dict(t=60, l=180, r=15, b=15)
     )
     return fig
 
