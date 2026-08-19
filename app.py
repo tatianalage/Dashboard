@@ -732,46 +732,55 @@ elif pagina == "Economia Solidária":
     st.divider()
     titulo_secao("Percepções")
     st.markdown("## Nível de concordância com as afirmações")
-    economia = [
-    (
-        "pagar_mais_produtos",
-        "Estou disposto a pagar um <br>"
-        "pouco mais por produtos <br>"
-        "produzidos de forma socialmente <br>"
-        "justa ou ambientalmente sustentável"
-    ),
-    (
-        "comprar_feiras_locais",
-        "Comprar em feiras locais <br>"
-        "fortalece a economia do bairro"
-    ),
-    (
-        "moedas_sociais_fortalecer_economia",
-        "Moedas sociais podem ajudar a <br>"
-        "fortalecer a economia das <br>"
-        "comunidades"
-    ),
-    (
-        "empreendimentos_coletivos",
-        "Empreendimentos coletivos são <br>"
-        "uma boa alternativa para a <br>"
-         "inclusão produtiva"
-    ),
-    (
-        "bancos_comunitarios_acesso_credito",
-        "Bancos comunitários ampliam <br>"
-        " o acesso ao crédito"
-    )
-]
-    for variavel, pergunta in economia:
-        mostrar_grafico(
-            grafico_concordancia_economia_interativo(
-                ponderacoes_economia_2026,
-                variavel,
-                pergunta
-            )
+    st.markdown("### Estou disposto a pagar um <br>pouco mais por produtos <br>produzidos de forma socialmente <br>justa ou ambientalmente sustentável", unsafe_allow_html=True)
+    mostrar_grafico(
+        grafico_concordancia_economia_interativo(
+            ponderacoes_economia_2026,
+            "pagar_mais_produtos",
+            ""
         )
-        st.divider()
+    )
+    st.divider()
+
+    st.markdown("### Comprar em feiras locais <br>fortalece a economia do bairro", unsafe_allow_html=True)
+    mostrar_grafico(
+        grafico_concordancia_economia_interativo(
+            ponderacoes_economia_2026,
+            "comprar_feiras_locais",
+            ""
+        )
+    )
+    st.divider()
+
+    st.markdown("### Moedas sociais podem ajudar a <br>fortalecer a economia das <br>comunidades", unsafe_allow_html=True)
+    mostrar_grafico(
+        grafico_concordancia_economia_interativo(
+            ponderacoes_economia_2026,
+            "moedas_sociais_fortalecer_economia",
+            ""
+        )
+    )
+    st.divider()
+
+    st.markdown("### Empreendimentos coletivos são <br>uma boa alternativa para a <br>inclusão produtiva", unsafe_allow_html=True)
+    mostrar_grafico(
+        grafico_concordancia_economia_interativo(
+            ponderacoes_economia_2026,
+            "empreendimentos_coletivos",
+            ""
+        )
+    )
+    st.divider()
+
+    st.markdown("### Bancos comunitários ampliam <br>o acesso ao crédito", unsafe_allow_html=True)
+    mostrar_grafico(
+        grafico_concordancia_economia_interativo(
+            ponderacoes_economia_2026,
+            "bancos_comunitarios_acesso_credito",
+            ""
+        )
+    )
+    st.divider()
 
 # ============================================================
 # PERFIL DA AMOSTRA

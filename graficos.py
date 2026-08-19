@@ -990,7 +990,6 @@ def grafico_concordancia_economia_interativo(ponderacoes, variavel, titulo):
                 )
             )
         )
-    altura = 150
     fig.update_layout(
         title=dict(
             text=titulo,
@@ -1024,7 +1023,7 @@ def grafico_concordancia_economia_interativo(ponderacoes, variavel, titulo):
         ),
         plot_bgcolor='white',
         paper_bgcolor='white',
-        height=altura,
+        height=210,
         margin=dict(
             t=60,
             b=80,
